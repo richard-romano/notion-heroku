@@ -47,7 +47,7 @@ def add(data_type, request):
                 errors = append_note(content)
 
             if(len(errors) > 0):
-                return errors, 500
+                return str(errors), 500
             else:
                 return 'Succeceed in adding '+data_type, 200
         except Exception as e:
