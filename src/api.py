@@ -29,6 +29,7 @@ def add(data_type, request):
     try:
         content = request.get_json()
     except:
+        print(request.data)
         title = request.args.get('title')
         if title is None:
             return 'No '+data_type+' supplied', 400
