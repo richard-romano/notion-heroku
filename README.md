@@ -15,15 +15,20 @@
 1. Have a [Notion](https://www.notion.so/) account
 2. Have a [Heroku](https://heroku.com/) account
 3. Have an [IFTTT](https://ifttt.com/) account (with Google Assistant service enabled)
-4. Have [Specific Notion Template](https://www.notion.so/Week-Template-0a7ac4d03082417c929176b5ea1df07e) as described in [this blog post](https://kevinjalbert.com/my-weekly-notion-setup/)
+4. ~~Have [Specific Notion Template](https://www.notion.so/Week-Template-0a7ac4d03082417c929176b5ea1df07e) as described in [this blog post](https://kevinjalbert.com/my-weekly-notion-setup/)~~ Have a table for Notes and/or a table for Tasks (can be the same table)
 5. Your Notion Token
-6. URLs for Several Notion Object
+6. URLs for the tables defined in 4.
 
 ## Install
 
 _Note:_ The required environment variables mentioned in the below steps are outlined in [kevinjalbert/alfred-notion](https://github.com/kevinjalbert/alfred-notion)'s section on [finding your Notion Token](https://github.com/kevinjalbert/alfred-notion#finding-your-notion-token) and [finding your Notion URLs](https://github.com/kevinjalbert/alfred-notion#finding-your-notion-urls).
 
-_Additional Note:_ You will want to set the `TZ` environment variable for your Heroku application to match your current timezone (i.e., `America/Toronto`). This will ensure that the correct day is used when creating a note or task.
+### Environment Variables
+
+- NOTION_TOKEN = [your Notion Token](https://github.com/kevinjalbert/alfred-notion#finding-your-notion-token)
+- NOTES_DATABASE_URL = the url to your notes database
+- TASKS_DATABASE_URL = the url to your tasks database (can be the same)
+- MAX_TITLE_LENGTH (optional) = the maximum length of the title before it gets truncated. If your title gets truncated, the full, untruncated title will first be added to the database row's page as a text block, so you won't lose any text. Defaults to 100 characters.
 
 ### With Heroku Deploy Button
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
@@ -73,6 +78,13 @@ The main difference is that the webhook URL is either `/add_note` or `/add_task`
 ![Step 6](./step6.png)
 
 </details>
+
+## Notes: ##
+ThI haven't updated the above screenshots from [@kevinjalbert](https://github.com/kevinjalbert)'s original versions. While I've made sure you can still use the `?title=` parameter, you can also omit that if you send JSON in the request body.
+
+If the JSON object is present, it will extract a `"title"` from that, and anything in the `"body"` property will be put into the database row's page. Any other properties you supply in this object will automatically map to other database properties if present, and if not return an error indicating which properties were not present.
+
+This opens up opportunities to include information like the source of your note (e.g. Google Assistant, Email, etc) if you set up multiple IFTTT trigger sources, or to add any other contextual information you deem relevant.
 
 ## Author
 

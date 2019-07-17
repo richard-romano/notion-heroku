@@ -21,4 +21,4 @@ def notesDatabaseURL():
 
 @cached(cache={})
 def maxTitleLength():
-    return os.environ.get('MAX_TITLE_LENGTH') or 20
+    return os.environ.get('MAX_TITLE_LENGTH') or 100
