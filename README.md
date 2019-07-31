@@ -86,6 +86,15 @@ If the JSON object is present, it will extract a `"title"` from that, and anythi
 
 This opens up opportunities to include information like the source of your note (e.g. Google Assistant, Email, etc) if you set up multiple IFTTT trigger sources, or to add any other contextual information you deem relevant.
 
+### Example
+    
+    {
+      "title": "<Row title>", // REQUIRED. The title of the database row you're creating
+      "type": "Note"|"Task",  // Which of the databases you want it to go to
+      "url": "<url>",         // The url of the database you want it to go to (overrides "type")
+      "body": "<text>"        // Text block you want to create inside the row's page (Markdown supported)
+    }
+
 ## Author
 
 👤 **Kevin Jalbert**

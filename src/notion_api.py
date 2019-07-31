@@ -3,11 +3,12 @@
 # Heavily borrowed from https://github.com/kevinjalbert/alfred-notion/blob/v1.0.0/src/notion_api.py
 # TODO: Would be nice to replace this and the source material with a common package
 
+import json
 from cachetools import cached
 from datetime import datetime
 
 from notion.client import NotionClient
-from notion.block import DividerBlock, TextBlock
+from notion.block import DividerBlock, TextBlock, CodeBlock, HeaderBlock
 
 from config import notionToken, tasksDatabaseURL, notesDatabaseURL, maxTitleLength
 
@@ -18,13 +19,17 @@ def client():
 
 
 @cached(cache={})
+def databaseByURL(url):
+    return client().get_collection_view(url)
+
+@cached(cache={})
 def tasksDatabase():
-    return client().get_collection_view(tasksDatabaseURL())
+    return databaseByURL(tasksDatabaseURL())
 
 
 @cached(cache={})
 def notesDatabase():
-    return client().get_collection_view(notesDatabaseURL())
+    return databaseByURL(notesDatabaseURL())
 
 
 def append_row(data, collection):
@@ -57,6 +62,10 @@ def append_row(data, collection):
         else:
             errors[p] = "Property '{}' not acceptable for collection '{}' (valid options: {})".format(p, collection.name, [d['name'] for d in collection.get_schema_properties()])
     
+    if len(errors) > 0:
+        row.children.add_new(DividerBlock)
+        row.children.add_new(HeaderBlock, title="Upload errors")
+        row.children.add_new(CodeBlock, title=json.dumps(errors, indent=4))
     return errors
 
 
@@ -72,3 +81,15 @@ def append_task(task):
     if "type" not in task:
         task["type"] = "Task"
     return append_row(task, collection)
+
+
+def append(note):
+    if "url" in note:
+        collection = databaseByURL(note["url"]).collection
+        note.pop("url")
+    elif "type" in note and note["type"] == "Task":
+        collection = tasksDatabase().collection
+    else:
+        note["type"] = "Note"
+        collection = notesDatabase().collection
+    return append_row(note, collection)

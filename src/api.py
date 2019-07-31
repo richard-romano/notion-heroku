@@ -1,6 +1,7 @@
 #!/usr/bin/env -S PATH="${PATH}:/usr/local/bin" python3
 
-from notion_api import append_note, append_task
+import json
+from notion_api import append_note, append_task, append
 # from config import importedTagURL
 
 from flask import Flask, request
@@ -23,6 +24,29 @@ def add_task():
     except Exception as e:
         print(str(e))
         return 'Failed in adding task', 500
+
+
+@app.route('/add', methods=['POST'])
+def add_generic():
+    try:
+        content = request.get_json()
+    except:
+        print(request.data)
+        return 'This request must be in json fromat'
+    
+    if content is None:
+        return 'No content or invalid json supplied'
+    elif "title" not in content:
+        return '"title" is a required field'
+    else:
+        try:
+            errors = append(content)
+            if(len(errors) > 0):
+                return json.dumps(errors, indent=4), 200
+            else:
+                return 'Succeceed in adding data', 200
+        except Exception as e:
+            return str(e), 500
 
 
 def add(data_type, request):
