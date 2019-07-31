@@ -2,8 +2,8 @@
 
 import json
 from notion_api import append_note, append_task, append
-from urllib.request import urlopen
-# from config import importedTagURL
+from bing_api import daily_image_url
+from datetime import datetime
 
 from flask import Flask, request, redirect
 app = Flask(__name__)
@@ -84,11 +84,7 @@ def add(data_type, request):
 @app.route('/bing', methods=['GET'])
 def bing():
     try:
-        url = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-AU"
-        response = urlopen(url)
-        data = response.read().decode("utf-8")
-        jsonobj = json.loads(data)
-        return redirect("https://www.bing.com" + jsonobj["images"][0]["url"], code=302)
+        return redirect(daily_image_url(datetime.today().strftime('%Y-%m-%d')), code=302)
     except Exception as e:
         return str(e), 500
 
