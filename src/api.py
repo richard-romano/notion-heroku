@@ -1,11 +1,10 @@
 #!/usr/bin/env -S PATH="${PATH}:/usr/local/bin" python3
 
-import json
 from notion_api import append_note, append_task, append
 from bing_api import daily_image_url
 from datetime import datetime
 
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, json
 app = Flask(__name__)
 
 
@@ -31,12 +30,10 @@ def add_task():
 def add_generic():
     try:
         # content = request.get_json()
-        content = request.get_json(force=true)
+        content = request.get_json()
     except:
         print('Content: ')
         print(request.data)
-        print('\nJSON: ')
-        print(request.json)
         return 'This request must be in json format'
     
     if content is None:
