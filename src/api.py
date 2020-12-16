@@ -30,7 +30,7 @@ def add_task():
 @app.route('/add', methods=['POST'])
 def add_generic():
     try:
-        content = request.get_json(force=True) # Added silent=True
+        content = request.json
     except:
         print('Content: ')
         print(request.data)
@@ -53,7 +53,7 @@ def add_generic():
 
 def add(data_type, request):
     try:
-        content = request.get_json(force=True) # Added silent=True
+        content = request.json
     except:
         print(request.data)
         title = request.args.get('title')
