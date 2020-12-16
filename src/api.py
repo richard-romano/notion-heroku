@@ -31,8 +31,9 @@ def add_task():
 def add_generic():
     try:
         content = request.get_json()
-    except:
         print('Content: ')
+        print(format(content))
+    except:
         print(request.data)
         return 'This request must be in json format'
     
