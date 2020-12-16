@@ -28,6 +28,9 @@ def add_task():
 
 @app.route('/add', methods=['POST'])
 def add_generic():
+    jsonData = request.get_json()
+    print(jsonData)
+
     try:
         # content = request.get_json()
         content = request.get_json()
