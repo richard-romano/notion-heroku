@@ -29,7 +29,7 @@ def add_task():
 @app.route('/add', methods=['POST'])
 def add_generic():
     print('Content Type: ')
-    print(request.content-type;
+    print(request.content-type)
     try:
         # content = request.get_json()
         content = request.get_json()
@@ -60,7 +60,7 @@ def add(data_type, request):
         print(request.data)
         title = request.args.get('title')
         if title is None:
-            return 'ADD: No '+data_type+' supplied', 400
+            return 'NT: No '+data_type+' supplied', 400
         else:
             content = {"title": title}
     
