@@ -29,7 +29,7 @@ def add_task():
 @app.route('/add', methods=['POST'])
 def add_generic():
     print('Content Type: ')
-    print(request.content-type)
+    print(request.content_type)
     try:
         # content = request.get_json()
         content = request.get_json()
