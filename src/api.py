@@ -32,7 +32,7 @@ def add_generic():
         # content = request.get_json()
         content = request.get_json()
     except:
-        print('Fails: ' + request.get_data())
+        print('Fails: ' + request.data)
         return 'This request must be in json format'
     
     if content is None:
