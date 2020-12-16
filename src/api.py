@@ -33,7 +33,7 @@ def add_generic():
         content = request.get_json()
     except:
         print('Content: ')
-        print(format(content))
+        print(request.data)
         return 'This request must be in json format'
     
     if content is None:
