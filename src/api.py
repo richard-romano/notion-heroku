@@ -32,8 +32,8 @@ def add_generic():
     try:
         content = request.get_json()
     except:
-        print(request.data)
-        return 'This request must be in json fromat'
+        print('Content: ' + request.data)
+        return 'This request must be in json format'
     
     if content is None:
         return 'No content or invalid json supplied'
@@ -57,12 +57,12 @@ def add(data_type, request):
         print(request.data)
         title = request.args.get('title')
         if title is None:
-            return 'No '+data_type+' supplied', 400
+            return 'ADD: No '+data_type+' supplied', 400
         else:
             content = {"title": title}
     
     if content is None or "title" not in content:
-        return 'No '+data_type+' supplied', 400
+        return 'ADD2: No '+data_type+' supplied', 400
     else:
         try:
             #send content to notion
