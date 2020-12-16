@@ -30,10 +30,10 @@ def add_task():
 @app.route('/add', methods=['POST'])
 def add_generic():
     try:
-        content = request.get_json()
-        print('Content: ')
-        print(format(content))
+        # content = request.get_json()
+        content = json.loads(request.data)
     except:
+        print('Content: ')
         print(request.data)
         return 'This request must be in json format'
     
