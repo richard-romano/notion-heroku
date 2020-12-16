@@ -28,10 +28,11 @@ def add_task():
 
 @app.route('/add', methods=['POST'])
 def add_generic():
-    print('Content Type: ' + request.content_type)
+    print('JSON?: ' + request.is_json)
     try:
         # content = request.get_json()
         content = request.get_json()
+        print(content)
     except:
         print('Content: ' + request.get_json())
         print('Fails: ' + request.get_data())
