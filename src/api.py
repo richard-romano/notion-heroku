@@ -28,14 +28,13 @@ def add_task():
 
 @app.route('/add', methods=['POST'])
 def add_generic():
-    print('Content Type: ')
-    print(request.content_type)
+    print('Content Type: ' + request.content_type)
     try:
         # content = request.get_json()
         content = request.get_json()
     except:
         print('Content: ')
-        print(request.data)
+        print(request.get_data())
         return 'This request must be in json format'
     
     if content is None:
