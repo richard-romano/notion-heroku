@@ -31,10 +31,12 @@ def add_task():
 def add_generic():
     try:
         # content = request.get_json()
-        content = json.loads(request.data)
+        content = request.get_json(force=true)
     except:
         print('Content: ')
         print(request.data)
+        print('\nJSON: ')
+        print(request.json)
         return 'This request must be in json format'
     
     if content is None:
