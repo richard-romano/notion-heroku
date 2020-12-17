@@ -66,6 +66,8 @@ def append_row(data, collection):
         row.children.add_new(DividerBlock)
         row.children.add_new(HeaderBlock, title="Upload errors")
         row.children.add_new(CodeBlock, title=json.dumps(errors, indent=4))
+        print('APR - Errors: ')
+        print(errors)
     return errors
 
 
