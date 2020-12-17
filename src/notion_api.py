@@ -85,6 +85,7 @@ def append_task(task):
     collection = tasksDatabase().collection
     if "type" not in task:
         task["type"] = "Task"
+    print(task)
     return append_row(task, collection)
 
 
