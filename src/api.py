@@ -51,6 +51,8 @@ def add_generic():
             else:
                 return 'Succeceed in adding data', 200
         except Exception as e:
+            print('Append Errors: ')
+            print(errors)
             return str(e), 500
 
 
