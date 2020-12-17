@@ -1,10 +1,13 @@
 #!/usr/bin/env -S PATH="${PATH}:/usr/local/bin" python3
-
+try:
+    import simplejson as json
+except ImportError:
+    import json
 from notion_api import append_note, append_task, append
 from bing_api import daily_image_url
 from datetime import datetime
 
-from flask import Flask, request, redirect, json
+from flask import Flask, request, redirect
 app = Flask(__name__)
 
 
@@ -63,6 +66,8 @@ def add(data_type, request):
             content = {"title": title}
     
     if content is None or "title" not in content:
+        print('content: ')
+        print(content)
         return 'ADD2: No '+data_type+' supplied', 400
     else:
         try:
