@@ -51,8 +51,6 @@ def add_generic():
             else:
                 return 'Succeceed in adding data', 200
         except Exception as e:
-            print('Append Errors: ')
-            print(errors)
             return str(e), 500
 
 
@@ -81,10 +79,18 @@ def add(data_type, request):
                 errors = append_note(content)
 
             if(len(errors) > 0):
+                print('Append Errors: ')
+                print(errors)
+                print('Content: ')
+                print(content)
                 return str(errors), 500
             else:
                 return 'Succeceed in adding '+data_type, 200
         except Exception as e:
+            print('Exception Errors: ')
+            print(errors)
+            print('Content: ')
+            print(content)
             return str(e), 500
 
 
