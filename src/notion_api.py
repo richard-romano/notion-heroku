@@ -58,6 +58,7 @@ def append_row(data, collection):
             try:
                 row.set_property(p, data[p])
             except Exception as e:
+                print(str(e))
                 errors[p] = str(e)
         else:
             errors[p] = "Property '{}' not acceptable for collection '{}' (valid options: {})".format(p, collection.name, [d['name'] for d in collection.get_schema_properties()])
