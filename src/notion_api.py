@@ -44,6 +44,7 @@ def append_row(data, collection):
     # get the title out first. This is the main thing. Errors may be possible
     # with the rest of it, so we want to at least get the title down
     row.title = data["title"]
+    print(row.title)
     data.pop('title') # don't need to use this twice
     
     # if we have a "body", add that as a text block rather than a property
@@ -58,11 +59,12 @@ def append_row(data, collection):
             try:
                 row.set_property(p, data[p])
             except Exception as e:
-                print(str(e))
+
                 errors[p] = str(e)
         else:
             errors[p] = "Property '{}' not acceptable for collection '{}' (valid options: {})".format(p, collection.name, [d['name'] for d in collection.get_schema_properties()])
-    
+        print(errors[p])
+            
     if len(errors) > 0:
         row.children.add_new(DividerBlock)
         row.children.add_new(HeaderBlock, title="Upload errors")
